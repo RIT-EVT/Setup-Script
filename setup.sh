@@ -25,7 +25,7 @@ brew tap actuallytaylor/formulae
 
 # Install the GNU ARM TOOLCHAIN
 echo "Installing the arm toolchain"
-brew install arm-gnu-toolchain@12.rb
+brew install arm-gnu-toolchain@12
 
 echo "Adding GCC_ARM_TOOLS_PATH to your shell PATH variables..."
 # Export the environment variable into the PATH based on the SHELL
