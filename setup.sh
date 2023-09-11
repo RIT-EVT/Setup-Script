@@ -7,6 +7,13 @@ if [[ $? != 0 ]] ; then
     # Install Homebrew
     echo "Homebrew not installed... Installing now..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    if [[ $SHELL = "/bin/zsh" ]]; then
+        echo; (echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
+    elif [[ $SHELL = "/bin/bash" ]]; then
+        echo; (echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.profile
+    fi
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 else
     echo "Homebrew already installed, updating"
     brew update
