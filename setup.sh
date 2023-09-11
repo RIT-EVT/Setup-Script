@@ -1,5 +1,5 @@
 #!/bin/sh
-# This set's up an EVT Development Environment from scratch for a macOS System.
+# This sets up an EVT Development Environment from scratch for a macOS System.
 
 echo "Checking for the existence of Homebrew. If it does not exist, it will be installed"
 which -s brew
