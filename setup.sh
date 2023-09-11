@@ -19,12 +19,15 @@ brew install arm-gnu-toolchain@12.rb
 
 
 # Export the environment variable into the PATH based on the SHELL
-if [[ $SHELL == "/bin/zsh" ]]; then
-    echo 'export GCC_ARM_TOOLS_PATH="/usr/local/bin"' >> ~/.zshrc
+if [[ $SHELL = "/bin/zsh" ]]; then
+    echo "A warning or error from the next command is expected."
+    echo '\nexport GCC_ARM_TOOLS_PATH="/usr/local/bin"' >> ~/.zshrc
     source ~/.zshrc
-elif [[ $SHELL == "/bin/sh" ]]; then
+elif [[ $SHELL = "/bin/bash" ]]; then
     echo 'export GCC_ARM_TOOLS_PATH="/usr/local/bin"' >> ~/.bash_profile
     source ~/.bash_profile
+else
+    echo 'Shell $0, not recognized. Please add export GCC_ARM_TOOLS_PATH="/usr/local/bin to your shell config file.'
 fi
 
 # Install CMAKE
