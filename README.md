@@ -9,3 +9,6 @@ curl -o setup.sh https://raw.githubusercontent.com/ActuallyTaylor/RIT-EVT-Setup/
 chmod 755 setup.sh
 ./setup.sh
 ```
+
+## Notes
+This script has been tested on multiple macOS virtual machines, my personal machine and a few members of EVT's machines. It is not perfect but should work for both Apple Silicon, Apple Silicon in Rosetta, and Intel Macs. If you have any issues feel free to edit the script and submit a pull request.
