@@ -10,8 +10,10 @@ if [[ $? != 0 ]] ; then
     
     if [[ $SHELL = "/bin/zsh" ]]; then
         echo; (echo 'eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"') >> ~/.zprofile
+        source ~/.zprofile
     elif [[ $SHELL = "/bin/bash" ]]; then
         echo; (echo 'eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"') >> ~/.profile
+        source ~/.profile
     fi
     eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 else
