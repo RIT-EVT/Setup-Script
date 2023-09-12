@@ -43,7 +43,7 @@ brew install arm-gnu-toolchain@12
 echo "Adding GCC_ARM_TOOLS_PATH to your shell PATH variables..."
 # Export the environment variable into the PATH based on the SHELL
 if [[ $SHELL = "/bin/zsh" ]]; then
-    echo "A warning or error from the next command is expected."
+    echo "You may receieve a warning on the next command, that is expected and okay."
     echo '\nexport GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.zshrc
     source ~/.zshrc
 elif [[ $SHELL = "/bin/bash" ]]; then
