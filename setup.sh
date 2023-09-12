@@ -7,15 +7,26 @@ if [[ $? != 0 ]] ; then
     # Install Homebrew
     echo "Homebrew not installed... Installing now..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Initialize a homebrew location based on the architecture of the machine.
+    MACHINE_ARCHITECTURE="$(/usr/bin/uname -m)"
+    if [[ "${MACHINE_ARCHITECTURE}" == "arm64" ]]
+    then
+        # On ARM macOS, homebrew is installed into /opt/homebrew
+        HOMEBREW_LOCATION="/opt/homebrew"
+    else
+        # On Intel macOS, homebrew is installed into /usr/local
+        HOMEBREW_LOCATION="/usr/local"
+    fi
     
     if [[ $SHELL = "/bin/zsh" ]]; then
-        echo; (echo 'eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"') >> ~/.zprofile
+        echo; (echo 'eval "$(${HOMEBREW_LOCATION}/bin/brew shellenv)"') >> ~/.zprofile
         source ~/.zprofile
     elif [[ $SHELL = "/bin/bash" ]]; then
-        echo; (echo 'eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"') >> ~/.profile
+        echo; (echo 'eval "$(${HOMEBREW_LOCATION}/bin/brew shellenv)"') >> ~/.profile
         source ~/.profile
     fi
-    eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+    eval "$(${HOMEBREW_LOCATION}/bin/brew shellenv)"
 else
     echo "Homebrew already installed, updating"
     brew update
