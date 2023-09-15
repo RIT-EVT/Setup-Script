@@ -83,7 +83,7 @@ echo "Adding GCC_ARM_TOOLS_PATH to your shell PATH variables..."
 # Export the environment variable into the PATH based on the SHELL
 if [[ $SHELL = "/bin/zsh" ]]; then
     echo "You may receieve a warning on the next command, that is expected and okay."
-    echo '\nexport GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.zshrc
+    echo 'export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.zshrc
     source ~/.zshrc
 elif [[ $SHELL = "/bin/bash" ]]; then
     echo 'export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.bash_profile
@@ -96,6 +96,16 @@ fi
 echo "Installing CMAKE"
 brew install --cask cmake
 
+if [[ $SHELL = "/bin/zsh" ]]; then
+    echo "export PATH=$PATH:/Applications/CMake.app/Contents/bin" >> ~/.zshrc
+    source ~/.zshrc
+elif [[ $SHELL = "/bin/bash" ]]; then
+    echo "export PATH=$PATH:/Applications/CMake.app/Contents/bin" >> ~/.bash_profile
+    source ~/.bash_profile
+else
+    echo 'Shell, not recognized. Please add export PATH=$PATH:/Applications/CMake.app/Contents/bin to your shell config file.'
+fi
+
 # Install clang-format
 echo "Installing clang-format"
 brew install clang-format
@@ -103,5 +113,3 @@ brew install clang-format
 echo ""
 echo ""
 echo "Finished installing an EVT environment to your computer."
-echo "Please run the following command to finish the brew installation"
-echo "eval "$(/usr/local/bin/brew shellenv)"
