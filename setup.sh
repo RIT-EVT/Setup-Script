@@ -60,3 +60,5 @@ brew install --cask cmake
 echo "Installing clang-format"
 # Install clang-format
 brew install clang-format
+
+echo "Finished installing an EVT environment to your computer. Please restart your computer for changes to propagate"
