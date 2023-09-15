@@ -1,8 +1,10 @@
 #!/bin/sh
 # This sets up an EVT Development Environment from scratch for a macOS System.
+bold=$(tput bold)
+normal=$(tput sgr0)
 
 echo "========================================================="
-echo "This script will set up all of the required packages and environment vairables that are used by an RIT-EVT Firmware developer."
+echo "${bold}This script will set up all of the required packages and environment vairables that are used by an RIT-EVT Firmware developer.${normal}"
 echo "1. The script will check to see if you have brew installed (https://brew.sh)"
 echo "2. If you do not have brew installed, the script will install brew for you."
 echo "3. The arm-gnu-toolchain version 12.3 will be installed. An Apple-Silicon or Intel version will be installed depending on your system."
@@ -14,19 +16,19 @@ echo "========================================================="
 echo ""
 
 
-read -p "Do you want to continue with installing this script? (y or n)" -n 1 -r
+read -p "${bold}Do you want to continue with installing this script? (y or n)${normal}" -n 1 -r
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     echo
-    echo "Script exiting now... Goodbye!"
+    echo "${bold}Script exiting now... Goodbye!${normal}"
     exit
 fi
 
 echo ""
 echo "========================================================="
 echp ""
-echo "Checking for the existence of Homebrew. If it does not exist, it will be installed"
+echo "${bold}Checking for the existence of Homebrew. If it does not exist, it will be installed${normal}"
 which -s brew
 if [[ $? != 0 ]] ; then
     # Install Homebrew
@@ -67,19 +69,19 @@ if [[ $? != 0 ]] ; then
         fi
     fi
 else
-    echo "Homebrew already installed, updating"
+    echo "${bold}Homebrew already installed, updating${normal}"
     brew update
 fi
 
 # Get the brew tap that hosts all of the brew files we need
-echo "Tapping the homebrew tap that contains the ARM Toolchain"
+echo "${bold}Tapping the homebrew tap that contains the ARM Toolchain${normal}"
 brew tap actuallytaylor/formulae
 
 # Install the GNU ARM TOOLCHAIN
-echo "Installing the arm toolchain"
+echo "${bold}Installing the arm toolchain${normal}"
 brew install arm-gnu-toolchain@12
 
-echo "Adding GCC_ARM_TOOLS_PATH to your shell PATH variables..."
+echo "${bold}Adding GCC_ARM_TOOLS_PATH to your shell PATH variables...${normal}"
 # Export the environment variable into the PATH based on the SHELL
 if [[ $SHELL = "/bin/zsh" ]]; then
     echo "You may receieve a warning on the next command, that is expected and okay."
@@ -93,7 +95,7 @@ else
 fi
 
 # Install CMAKE
-echo "Installing CMAKE"
+echo "${bold}Installing CMAKE{$normal}"
 brew install --cask cmake
 
 if [[ $SHELL = "/bin/zsh" ]]; then
@@ -112,4 +114,4 @@ brew install clang-format
 
 echo ""
 echo ""
-echo "Finished installing an EVT environment to your computer."
+echo "${bold}Finished installing an EVT environment to your computer.${normal}"
