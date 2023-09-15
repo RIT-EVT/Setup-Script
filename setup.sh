@@ -102,4 +102,6 @@ brew install clang-format
 
 echo ""
 echo ""
-echo "Finished installing an EVT environment to your computer. Please restart your computer for changes to propagate"
+echo "Finished installing an EVT environment to your computer."
+echo "Please run the following command to finish the brew installation"
+echo "eval "$(/usr/local/bin/brew shellenv)"
