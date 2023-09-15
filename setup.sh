@@ -99,10 +99,10 @@ echo "${bold}Installing CMAKE${normal}"
 brew install --cask cmake
 
 if [[ $SHELL = "/bin/zsh" ]]; then
-    echo "export PATH=$PATH:/Applications/CMake.app/Contents/bin" >> ~/.zshrc
+    echo "export PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.zshrc
     source ~/.zshrc
 elif [[ $SHELL = "/bin/bash" ]]; then
-    echo "export PATH=$PATH:/Applications/CMake.app/Contents/bin" >> ~/.bash_profile
+    echo "export PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.bash_profile
     source ~/.bash_profile
 else
     echo 'Shell, not recognized. Please add export PATH=$PATH:/Applications/CMake.app/Contents/bin to your shell config file.'
