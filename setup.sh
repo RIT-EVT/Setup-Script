@@ -1,6 +1,27 @@
 #!/bin/sh
 # This sets up an EVT Development Environment from scratch for a macOS System.
 
+echo "This script will set up all of the required packages and environment vairables that are used by an RIT-EVT Firmware developer."
+echo "1. The script will check to see if you have brew installed (https://brew.sh)"
+echo "2. If you do not have brew installed, the script will install brew for you."
+echo "3. The arm-gnu-toolchain version 12.3 will be installed. An Apple-Silicon or Intel version will be installed depending on your system."
+echo "4. EVT's custom path variable GCC_ARM_TOOLS_PATH will be added to your terminal's path."
+echo "5. CMAKE will be installed using brew and then added to your PATH."
+echo "6. clang-format will be installed using brew."
+echo "7. That's it! Everything should be set up now."
+echo ""
+echo ""
+
+
+read -p "Do you want to continue with installing this script? " -n 1 -r
+
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    echo
+    echo "Script exiting now... Goodbye!"
+    exit
+fi
+
 echo "Checking for the existence of Homebrew. If it does not exist, it will be installed"
 which -s brew
 if [[ $? != 0 ]] ; then
@@ -64,15 +85,17 @@ elif [[ $SHELL = "/bin/bash" ]]; then
     echo 'export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.bash_profile
     source ~/.bash_profile
 else
-    echo 'Shell $0, not recognized. Please add export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin to your shell config file.'
+    echo 'Shell, not recognized. Please add export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin to your shell config file.'
 fi
 
-echo "Installing CMAKE"
 # Install CMAKE
+echo "Installing CMAKE"
 brew install --cask cmake
 
-echo "Installing clang-format"
 # Install clang-format
+echo "Installing clang-format"
 brew install clang-format
 
+echo ""
+echo ""
 echo "Finished installing an EVT environment to your computer. Please restart your computer for changes to propagate"
