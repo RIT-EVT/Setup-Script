@@ -95,7 +95,7 @@ else
 fi
 
 # Install CMAKE
-echo "${bold}Installing CMAKE{$normal}"
+echo "${bold}Installing CMAKE${normal}"
 brew install --cask cmake
 
 if [[ $SHELL = "/bin/zsh" ]]; then
@@ -109,9 +109,8 @@ else
 fi
 
 # Install clang-format
-echo "Installing clang-format"
+echo "${bold}Installing clang-format${normal}"
 brew install clang-format
 
-echo ""
 echo ""
 echo "${bold}Finished installing an EVT environment to your computer.${normal}"
