@@ -14,7 +14,7 @@ echo "========================================================="
 echo ""
 
 
-read -p "Do you want to continue with installing this script? " -n 1 -r
+read -p "Do you want to continue with installing this script? (y or n)" -n 1 -r
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
