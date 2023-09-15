@@ -1,6 +1,7 @@
 #!/bin/sh
 # This sets up an EVT Development Environment from scratch for a macOS System.
 
+echo "========================================================="
 echo "This script will set up all of the required packages and environment vairables that are used by an RIT-EVT Firmware developer."
 echo "1. The script will check to see if you have brew installed (https://brew.sh)"
 echo "2. If you do not have brew installed, the script will install brew for you."
@@ -9,7 +10,7 @@ echo "4. EVT's custom path variable GCC_ARM_TOOLS_PATH will be added to your ter
 echo "5. CMAKE will be installed using brew and then added to your PATH."
 echo "6. clang-format will be installed using brew."
 echo "7. That's it! Everything should be set up now."
-echo ""
+echo "========================================================="
 echo ""
 
 
@@ -22,6 +23,8 @@ then
     exit
 fi
 
+echo ""
+echo "========================================================="
 echo "Checking for the existence of Homebrew. If it does not exist, it will be installed"
 which -s brew
 if [[ $? != 0 ]] ; then
