@@ -25,6 +25,7 @@ fi
 
 echo ""
 echo "========================================================="
+echp ""
 echo "Checking for the existence of Homebrew. If it does not exist, it will be installed"
 which -s brew
 if [[ $? != 0 ]] ; then
