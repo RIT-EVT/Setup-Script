@@ -10,23 +10,37 @@ if [[ $? != 0 ]] ; then
 
     # Initialize a homebrew location based on the architecture of the machine.
     MACHINE_ARCHITECTURE="$(/usr/bin/uname -m)"
-    if [[ "${MACHINE_ARCHITECTURE}" == "arm64" ]]
-    then
-        # On ARM macOS, homebrew is installed into /opt/homebrew
-        HOMEBREW_LOCATION="/opt/homebrew"
-    else
-        # On Intel macOS, homebrew is installed into /usr/local
-        HOMEBREW_LOCATION="/usr/local"
-    fi
-    
+
     if [[ $SHELL = "/bin/zsh" ]]; then
-        echo; (echo 'eval "$(${HOMEBREW_LOCATION}/bin/brew shellenv)"') >> ~/.zprofile
+        if [[ "${MACHINE_ARCHITECTURE}" == "arm64" ]]; then
+            # On ARM macOS, homebrew is installed into /opt/homebrew
+            echo; (echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
+            source ~/.zprofile
+
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        else
+            # On Intel macOS, homebrew is installed into /usr/local
+            echo; (echo 'eval "$(/usr/local/bin/brew shellenv)"') >> ~/.zprofile
+            source ~/.zprofile
+
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
         source ~/.zprofile
     elif [[ $SHELL = "/bin/bash" ]]; then
-        echo; (echo 'eval "$(${HOMEBREW_LOCATION}/bin/brew shellenv)"') >> ~/.profile
-        source ~/.profile
+        if [[ "${MACHINE_ARCHITECTURE}" == "arm64" ]]; then
+            # On ARM macOS, homebrew is installed into /opt/homebrew
+            echo; (echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.profile
+            source ~/.profile
+
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        else
+            # On Intel macOS, homebrew is installed into /usr/local
+            echo; (echo 'eval "$(/usr/local/bin/brew shellenv)"') >> ~/.profile
+            source ~/.profile
+            
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
     fi
-    eval "$(${HOMEBREW_LOCATION}/bin/brew shellenv)"
 else
     echo "Homebrew already installed, updating"
     brew update
