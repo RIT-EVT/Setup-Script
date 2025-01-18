@@ -15,3 +15,10 @@ irm "https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_windows.p
 ```
 
 # Components
+1. CMake
+2. GNU Arm Tools
+3. OpenOCD
+4. Git (Windows Only)
+5. PuTTy (Windows Only)
+6. Homebrew (Mac Only)
+7. clang-format (Mac Only)
