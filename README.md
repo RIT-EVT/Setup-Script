@@ -3,10 +3,11 @@ This repository contains a single file with the purpose of setting up an EVT Dev
 
 # Installation
 ## Installing for macOS
-There are three commands needed to download and run the setup script. These commands will work on a blank install of macOS so you should not have any provlems running them.
-
-```
-curl https://raw.githubusercontent.com/ActuallyTaylor/RIT-EVT-Setup/main/setup.sh | sh
+```bash
+curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup.sh | sh
 ```
 
 ## Installing for Windows
+```powershell
+irm "https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_windows.ps1" | iex
+```
