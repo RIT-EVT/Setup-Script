@@ -47,13 +47,14 @@ rm arm_tools.tar.xz
 echo "${bold}Setting GCC_ARM_TOOLS_PATH${normal}"
 if [[ $SHELL = "/bin/zsh" ]]; then
     echo "You may receieve a warning on the next command, that is expected and okay."
-    echo 'export GCC_ARM_TOOLS_PATH="~/.EVT/arm_tools/bin"' >> ~/.zshrc
+    echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.zshrc
     source ~/.zshrc
 elif [[ $SHELL == "/bin/bash" ]]; then
-    echo 'export GCC_ARM_TOOLS_PATH="~/.EVT/arm_tools/bin"' >> ~/.bash_profile
+    echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bash_profile
+    echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bashrc
     source ~/.bash_profile
 elif [[ $SHELL == "/bin/fish" ]]; then
-    echo 'set -gx GCC_ARM_TOOLS_PATH ~/.EVT/arm_tools/bin' >> ~/.config/fish/config.fish
+    echo 'set -gx GCC_ARM_TOOLS_PATH ${HOME}.EVT/arm_tools/bin' >> ~/.config/fish/config.fish
     source ~/.config/fish/config.fish
 else
     echo 'Shell, not recognized. Please add export GCC_ARM_TOOLS_PATH="~/.EVT/arm_tools/bin to your shell config file.'
