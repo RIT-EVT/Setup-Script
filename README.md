@@ -11,7 +11,7 @@ curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_mac.sh | 
 
 ## Installing for Linux
 ```bash
-curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_linux.sh | sh
+curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_linux.sh | bash
 ```
 
 ## Installing for Windows
