@@ -6,7 +6,12 @@ Installation has been streamlined to a single command on both macOS and Windows.
 # Installation
 ## Installing for macOS
 ```bash
-curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup.sh | sh
+curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_mac.sh | sh
+```
+
+## Installing for Linux
+```bash
+curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_linux.sh | sh
 ```
 
 ## Installing for Windows
