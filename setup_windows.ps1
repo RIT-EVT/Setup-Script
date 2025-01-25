@@ -17,25 +17,31 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 # Ensure TLS 1.2 is used for secure connections
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 
-if (Get-Command "cmake") {
+if (Get-Command "cmake" -ErrorAction SilentlyContinue | Out-Null) {
     Write-Host "Cmake is already installed."
 } else {
     winget install -e --id Kitware.CMake
 }
 
-if (Get-Command "git") {
+if (Get-Command "git" -ErrorAction SilentlyContinue | Out-Null) {
     Write-Host "Git is already installed."
 } else {
     winget install -e --id Git.Git
 }
 
-if (Get-Command "putty") {
+if (Get-Command "putty" -ErrorAction SilentlyContinue | Out-Null) {
     Write-Host "Putty is already installed."
 } else {
     winget install -e --id PuTTY.PuTTY
 }
 
-if (-not (Test-Path "C:\EVT")) {
+if (Get-Command "clang-format" -ErrorAction SilentlyContinue | Out-Null) {
+    Write-Host "Clang already installed"
+} else {
+    winget install -e --id LLVM.LLVM -v 15.0.7
+}
+
+if (-not (Test-Path "C:\EVT") ) {
     New-Item -ItemType Directory -Path C:\EVT
 }
 
@@ -80,3 +86,6 @@ $ProgressPreference = 'Continue'
 Write-Host "=== INSTALL LOCATIONS ==="
 Write-Host "OpenOCD Install Location: C:\EVT\openocd\bin\openocd.exe"
 Write-Host "ARM Tools Install Location: C:\EVT\arm-tools\bin"
+
+Write-Host "=== Restart Computer ==="
+Write-Host "Please restart your computer to complete the installation of all packages :)"

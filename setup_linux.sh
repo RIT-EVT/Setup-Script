@@ -27,37 +27,42 @@ else
   gcc_tools_download_link="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz"
 fi
 
-echo "${bold}Installing ARM toolchain${normal}"
-if ! command -v cmake >/dev/null 2>&1; then
-  echo "curl not installed!"
-  if command -v apt >/dev/null 2>&1; then
-      echo "Try: sudo apt install curl"
-  elif command -v pacman >/dev/null 2>$1; then
-      echo "Try: sudo pacman -S curl"
-  else
-      echo "Please install curl using the package manager of yourt choice."
-      exit
-  fi
-fi
+if [ ! -d "$install_dir/arm_tools/bin" ]; then
+    echo "${bold}Installing ARM toolchain${normal}"
+    if ! command -v cmake >/dev/null 2>&1; then
+        echo "curl not installed!"
+        if command -v apt >/dev/null 2>&1; then
+            echo "Try: sudo apt install curl"
+        elif command -v pacman >/dev/null 2>$1; then
+            echo "Try: sudo pacman -S curl"
+        else
+            echo "Please install curl using the package manager of yourt choice."
+            exit
+        fi
+    fi
 
-curl -o arm_tools.tar.xz $gcc_tools_download_link
-tar -xvf arm_tools.tar.xz -C $install_dir/arm_tools --strip-components 1
-rm arm_tools.tar.xz
 
-echo "${bold}Setting GCC_ARM_TOOLS_PATH${normal}"
-if [[ $SHELL = "/bin/zsh" ]]; then
-    echo "You may receieve a warning on the next command, that is expected and okay."
-    echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.zshrc
-    source ~/.zshrc
-elif [[ $SHELL == "/bin/bash" ]]; then
-    echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bash_profile
-    echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bashrc
-    source ~/.bash_profile
-elif [[ $SHELL == "/bin/fish" ]]; then
-    echo 'set -gx GCC_ARM_TOOLS_PATH ${HOME}.EVT/arm_tools/bin' >> ~/.config/fish/config.fish
-    source ~/.config/fish/config.fish
+    curl -o arm_tools.tar.xz $gcc_tools_download_link
+    tar -xvf arm_tools.tar.xz -C $install_dir/arm_tools --strip-components 1
+    rm arm_tools.tar.xz
+
+    echo "${bold}Setting GCC_ARM_TOOLS_PATH${normal}"
+    if [[ $SHELL = "/bin/zsh" ]]; then
+        echo "You may receieve a warning on the next command, that is expected and okay."
+        echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.zshrc
+        source ~/.zshrc
+    elif [[ $SHELL == "/bin/bash" ]]; then
+        echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bash_profile
+        echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bashrc
+        source ~/.bash_profile
+    elif [[ $SHELL == "/bin/fish" ]]; then
+        echo 'set -gx GCC_ARM_TOOLS_PATH ${HOME}.EVT/arm_tools/bin' >> ~/.config/fish/config.fish
+        source ~/.config/fish/config.fish
+    else
+        echo 'Shell, not recognized. Please add export GCC_ARM_TOOLS_PATH="~/.EVT/arm_tools/bin to your shell config file.'
+    fi
 else
-    echo 'Shell, not recognized. Please add export GCC_ARM_TOOLS_PATH="~/.EVT/arm_tools/bin to your shell config file.'
+    echo "${bold}ARM toolchain already installed${normal}"
 fi
 
 echo "${bold}Installing CMAKE${normal}"
@@ -75,6 +80,21 @@ if ! command -v cmake >/dev/null 2>&1; then
   fi
 else
     echo "cmake has been detected as already installed."
+fi
+
+if ! command -v clang-format --version >/dev/null 2>&1; then
+  if command -v apt >/dev/null 2>&1; then
+      echo "Installing using apt..."
+      sudo apt install clang-format
+  elif command -v pacman >/dev/null 2>$1; then
+      echo "Installing using pacman..."
+      sudo pacman -S clang-format-static-bin
+  else
+      echo "Could not identify the package manager. Please manually install LLVM / Clang Tools."
+      exit 0
+  fi
+else
+    echo "clang-format has been detected as already installed."
 fi
 
 echo "${bold}Finished installing an EVT environment to your computer.${normal}"
