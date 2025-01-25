@@ -1,7 +1,7 @@
 # RIT-EVT Setup Script
 This repository contains a single file with the purpose of setting up an EVT Development Enivornment for team members. This script was created to streamline the process of installing complex components of the EVT environment.
 
-Installation has been streamlined to a single command on both macOS and Windows.
+Installation has been streamlined to a single command on both macOS, Windows and Linux.
 
 # Installation
 ## Installing for macOS
