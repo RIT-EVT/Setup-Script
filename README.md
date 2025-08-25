@@ -15,6 +15,9 @@ Paste this command into any linux terminal.
 ```bash
 curl https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_linux.sh | bash
 ```
+```bash
+wget -qO - https://raw.githubusercontent.com/RIT-EVT/Setup-Script/main/setup_linux.sh | bash
+```
 
 ## Installing for Windows
 Paste this command into a powershell window.
