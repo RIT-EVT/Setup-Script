@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # This sets up an EVT Development Environment from scratch for a Linux System.
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -29,22 +30,29 @@ fi
 
 if [ ! -d "$install_dir/arm_tools/bin" ]; then
     echo "${bold}Installing ARM toolchain${normal}"
-    if ! command -v cmake >/dev/null 2>&1; then
-        echo "curl not installed!"
-        if command -v apt >/dev/null 2>&1; then
-            echo "Try: sudo apt install curl"
-        elif command -v pacman >/dev/null 2>$1; then
-            echo "Try: sudo pacman -S curl"
-        else
-            echo "Please install curl using the package manager of yourt choice."
-            exit
-        fi
+
+    installed=0
+
+    if command -v curl >/dev/null 2>&1; then
+        # Curl is installed
+        curl -o arm_tools.tar.xz $gcc_tools_download_link
+        tar -xvf arm_tools.tar.xz -C $install_dir/arm_tools --strip-components 1
+        rm arm_tools.tar.xz
+        installed=1
     fi
 
+    if command -v wget >/dev/null 2>&1; then
+        # Wget is installed
+        wget -O arm_tools.tar.xz $gcc_tools_download_link
+        tar -xvf arm_tools.tar.xz -C $install_dir/arm_tools --strip-components 1
+        rm arm_tools.tar.xz
+        installed=1
+    fi
 
-    curl -o arm_tools.tar.xz $gcc_tools_download_link
-    tar -xvf arm_tools.tar.xz -C $install_dir/arm_tools --strip-components 1
-    rm arm_tools.tar.xz
+    if [ $installed -eq 0 ]; then
+        echo "Error: Neither curl nor wget is installed. Please install one of them."
+        exit 1
+    fi
 
     echo "${bold}Setting GCC_ARM_TOOLS_PATH${normal}"
     if [[ $SHELL = "/bin/zsh" ]]; then
@@ -70,10 +78,18 @@ echo "${bold}Installing CMAKE${normal}"
 if ! command -v cmake >/dev/null 2>&1; then
   if command -v apt >/dev/null 2>&1; then
       echo "Installing using apt..."
-      sudo apt-get install cmake
-  elif command -v pacman >/dev/null 2>$1; then
+      if [[ $EUID -ne 0 ]]; then
+          sudo apt install cmake
+      else
+          apt install cmake
+      fi
+  elif command -v pacman >/dev/null 2>&1; then
       echo "Installing using pacman..."
-      sudo pacman -S cmake
+      if [[ $EUID -ne 0 ]]; then
+          sudo pacman -Syu cmake
+      else
+          pacman -Syu cmake
+      fi
   else
       echo "Could not identify the package manager. Please manually install CMAKE."
       exit 0
@@ -85,10 +101,19 @@ fi
 if ! command -v clang-format --version >/dev/null 2>&1; then
   if command -v apt >/dev/null 2>&1; then
       echo "Installing using apt..."
-      sudo apt install clang-format
-  elif command -v pacman >/dev/null 2>$1; then
+      if [[ $EUID -ne 0 ]]; then
+          sudo apt install clang-format
+      else
+          apt install clang-format
+      fi
+  elif command -v pacman >/dev/null 2>&1; then
       echo "Installing using pacman..."
-      sudo pacman -S clang-format-static-bin
+      if [[ $EUID -ne 0 ]]; then
+          sudo pacman -Syu clang
+      else
+          pacman -Syu clang
+      fi
+
   else
       echo "Could not identify the package manager. Please manually install LLVM / Clang Tools."
       exit 0
