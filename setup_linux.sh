@@ -28,7 +28,7 @@ else
   gcc_tools_download_link="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-x86_64-arm-none-eabi.tar.xz"
 fi
 
-if [ ! -d "$install_dir/arm_tools/bin" ]; then
+if ! -d "$install_dir/arm_tools/bin"; then
     echo "${bold}Installing ARM toolchain${normal}"
 
     installed=0
@@ -41,29 +41,31 @@ if [ ! -d "$install_dir/arm_tools/bin" ]; then
         installed=1
     fi
 
-    if command -v wget >/dev/null 2>&1; then
-        # Wget is installed
-        wget -O arm_tools.tar.xz $gcc_tools_download_link
-        tar -xvf arm_tools.tar.xz -C $install_dir/arm_tools --strip-components 1
-        rm arm_tools.tar.xz
-        installed=1
+    if ! installed; then
+        if command -v wget >/dev/null 2>&1; then
+            # Wget is installed
+            wget -O arm_tools.tar.xz $gcc_tools_download_link
+            tar -xvf arm_tools.tar.xz -C $install_dir/arm_tools --strip-components 1
+            rm arm_tools.tar.xz
+            installed=1
+        fi
     fi
 
-    if [ $installed -eq 0 ]; then
+    if $installed -eq 0; then
         echo "Error: Neither curl nor wget is installed. Please install one of them."
         exit 1
     fi
 
     echo "${bold}Setting GCC_ARM_TOOLS_PATH${normal}"
-    if [[ $SHELL = "/bin/zsh" ]]; then
+    if $SHELL = "/bin/zsh"; then
         echo "You may receieve a warning on the next command, that is expected and okay."
         echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.zshrc
         source ~/.zshrc
-    elif [[ $SHELL == "/bin/bash" ]]; then
+    elif $SHELL == "/bin/bash" ; then
         echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bash_profile
         echo 'export GCC_ARM_TOOLS_PATH="${HOME}/.EVT/arm_tools/bin"' >> ~/.bashrc
         source ~/.bash_profile
-    elif [[ $SHELL == "/bin/fish" ]]; then
+    elif $SHELL == "/bin/fish"; then
         echo 'set -gx GCC_ARM_TOOLS_PATH ${HOME}.EVT/arm_tools/bin' >> ~/.config/fish/config.fish
         source ~/.config/fish/config.fish
     else
@@ -101,19 +103,18 @@ fi
 if ! command -v clang-format --version >/dev/null 2>&1; then
   if command -v apt >/dev/null 2>&1; then
       echo "Installing using apt..."
-      if [[ $EUID -ne 0 ]]; then
+      if $EUID -ne 0; then
           sudo apt install clang-format
       else
           apt install clang-format
       fi
   elif command -v pacman >/dev/null 2>&1; then
       echo "Installing using pacman..."
-      if [[ $EUID -ne 0 ]]; then
+      if $EUID -ne 0; then
           sudo pacman -Syu clang
       else
           pacman -Syu clang
       fi
-
   else
       echo "Could not identify the package manager. Please manually install LLVM / Clang Tools."
       exit 0
