@@ -70,10 +70,10 @@ echo "${bold}Adding GCC_ARM_TOOLS_PATH to your shell PATH variables...${normal}"
 # Export the environment variable into the PATH based on the SHELL
 if [[ $SHELL = "/bin/zsh" ]]; then
     echo "You may receieve a warning on the next command, that is expected and okay."
-    echo 'export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.zshrc
+    echo '\nexport GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.zshrc
     source ~/.zshrc
 elif [[ $SHELL = "/bin/bash" ]]; then
-    echo 'export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.bash_profile
+    echo '\nexport GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.bash_profile
     source ~/.bash_profile
 else
     echo 'Shell, not recognized. Please add export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin to your shell config file.'
@@ -84,10 +84,10 @@ echo "${bold}Installing CMAKE${normal}"
 brew install --cask cmake
 
 if [[ $SHELL = "/bin/zsh" ]]; then
-    echo "export PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.zshrc
+    echo "\nexport PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.zshrc
     source ~/.zshrc
 elif [[ $SHELL = "/bin/bash" ]]; then
-    echo "export PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.bash_profile
+    echo "\nexport PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.bash_profile
     source ~/.bash_profile
 else
     echo 'Shell, not recognized. Please add export PATH=$PATH:/Applications/CMake.app/Contents/bin to your shell config file.'
