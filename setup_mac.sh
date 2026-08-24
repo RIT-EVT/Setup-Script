@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 # This sets up an EVT Development Environment from scratch for a macOS System.
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -60,21 +60,19 @@ fi
 
 # Get the brew tap that hosts all of the brew files we need
 echo "${bold}Tapping the homebrew tap that contains the ARM Toolchain${normal}"
-brew tap actuallytaylor/formulae
+brew tap
 
 # Install the GNU ARM TOOLCHAIN
+
 echo "${bold}Installing the arm toolchain${normal}"
-brew install arm-gnu-toolchain@12
+brew install actuallytaylor/formulae/arm-gnu-toolchain@12
 
 echo "${bold}Adding GCC_ARM_TOOLS_PATH to your shell PATH variables...${normal}"
 # Export the environment variable into the PATH based on the SHELL
 if [[ $SHELL = "/bin/zsh" ]]; then
-    echo "You may receieve a warning on the next command, that is expected and okay."
     echo '\nexport GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.zshrc
-    source ~/.zshrc
 elif [[ $SHELL = "/bin/bash" ]]; then
     echo '\nexport GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin/"' >> ~/.bash_profile
-    source ~/.bash_profile
 else
     echo 'Shell, not recognized. Please add export GCC_ARM_TOOLS_PATH="$HOMEBREW_PREFIX/bin to your shell config file.'
 fi
@@ -85,10 +83,8 @@ brew install --cask cmake
 
 if [[ $SHELL = "/bin/zsh" ]]; then
     echo "\nexport PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.zshrc
-    source ~/.zshrc
 elif [[ $SHELL = "/bin/bash" ]]; then
     echo "\nexport PATH=\$PATH:/Applications/CMake.app/Contents/bin" >> ~/.bash_profile
-    source ~/.bash_profile
 else
     echo 'Shell, not recognized. Please add export PATH=$PATH:/Applications/CMake.app/Contents/bin to your shell config file.'
 fi
