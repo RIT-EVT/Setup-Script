@@ -48,7 +48,7 @@ if (-not (Test-Path "C:\EVT") ) {
 $ProgressPreference = 'SilentlyContinue'
 if (-not (Test-Path "C:\EVT\arm-tools")) {
     Write-Host "Installing GNU ARM Embedded Toolchain"
-    Invoke-WebRequest -uri "https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-mingw-w64-i686-arm-none-eabi.exe" -Method "GET"  -Outfile "arm-tools.zip"
+    Invoke-WebRequest -uri "https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/12.3.rel1/binrel/arm-gnu-toolchain-12.3.rel1-mingw-w64-i686-arm-none-eabi.zip" -Method "GET"  -Outfile "arm-tools.zip"
 
     Write-Host "Expanding ARM Tools, Errors are expected here..."
     Expand-Archive -Path "arm-tools.zip" -DestinationPath "arm-tools"
